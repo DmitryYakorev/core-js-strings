@@ -40,8 +40,8 @@ function getStringLength(value) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  console.log(typeof value);
-  return typeof value.toString() === 'string';
+  if (value === undefined || value === null) return false;
+  return value.constructor.toString().indexOf('String') > -1;
 }
 
 /**
