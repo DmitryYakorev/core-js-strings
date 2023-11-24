@@ -409,8 +409,12 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const temp = value.split(' ');
+  const name = temp[temp.length - 2];
+  let surname = temp[temp.length - 1];
+  surname = surname.slice(0, surname.length - 1);
+  return `${name} ${surname}`;
 }
 
 /**
@@ -424,8 +428,8 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.replace('<', '').replace('>', '');
 }
 
 /**
@@ -443,8 +447,8 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -463,8 +467,19 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let res = str.split('').map((el) => el.charCodeAt(0));
+  for (let i = 0; i < res.length; i += 1) {
+    const temp = res[i];
+    if (temp > 64 && temp < 78) res[i] += 13;
+    if (temp > 77 && temp < 91) res[i] -= 13;
+    if (temp > 96 && temp < 110) {
+      res[i] += 13;
+    }
+    if (temp > 109 && temp < 123) res[i] -= 13;
+  }
+  res = res.map((el) => String.fromCharCode(el));
+  return res.join('');
 }
 
 /**
@@ -491,8 +506,63 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const array = [
+    'A♣',
+    '2♣',
+    '3♣',
+    '4♣',
+    '5♣',
+    '6♣',
+    '7♣',
+    '8♣',
+    '9♣',
+    '10♣',
+    'J♣',
+    'Q♣',
+    'K♣',
+    'A♦',
+    '2♦',
+    '3♦',
+    '4♦',
+    '5♦',
+    '6♦',
+    '7♦',
+    '8♦',
+    '9♦',
+    '10♦',
+    'J♦',
+    'Q♦',
+    'K♦',
+    'A♥',
+    '2♥',
+    '3♥',
+    '4♥',
+    '5♥',
+    '6♥',
+    '7♥',
+    '8♥',
+    '9♥',
+    '10♥',
+    'J♥',
+    'Q♥',
+    'K♥',
+    'A♠',
+    '2♠',
+    '3♠',
+    '4♠',
+    '5♠',
+    '6♠',
+    '7♠',
+    '8♠',
+    '9♠',
+    '10♠',
+    'J♠',
+    'Q♠',
+    'K♠',
+  ];
+  const res = array.indexOf(value);
+  return res;
 }
 
 module.exports = {
